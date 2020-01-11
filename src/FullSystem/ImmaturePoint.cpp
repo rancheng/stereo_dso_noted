@@ -74,6 +74,8 @@ ImmaturePoint::ImmaturePoint(float u_, float v_, FrameHessian* host_, CalibHessi
         color[idx] = ptc[0];
         if(!std::isfinite(color[idx])) {energyTH=NAN; return;}
 
+        // ptc.tail<2>() is the Ix and Iy, so this is sum_patternNum(Ix*Ix + Iy*Iy)
+        // gradH is now a scalar: sum of all the (Ix*Ix + Iy*Iy)
         gradH += ptc.tail<2>()  * ptc.tail<2>().transpose();
 
         weights[idx] = sqrtf(setting_outlierTHSumComponent / (setting_outlierTHSumComponent + ptc.tail<2>().squaredNorm()));
@@ -199,6 +201,7 @@ ImmaturePointStatus ImmaturePoint::traceStereo(FrameHessian* frame, Mat33f K, bo
 	}
 
 	// ============== compute error-bounds on result in pixel. if the new interval is not at least 1/2 of the old, SKIP ===================
+	// this is pushing the idepth_max_stereo and idepth_min_stereo to converge into a single point
 	float dx = setting_trace_stepsize*(uMax-uMin);
 	float dy = setting_trace_stepsize*(vMax-vMin);
 

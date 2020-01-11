@@ -25,6 +25,7 @@
 
 #include "IOWrapper/ImageRW.h"
 #include <opencv2/highgui/highgui.hpp>
+#include <iostream>
 
 
 namespace dso
@@ -34,7 +35,9 @@ namespace IOWrap
 {
 MinimalImageB* readImageBW_8U(std::string filename)
 {
+//    std::cout << "!!!!!!!!!!!!!!!!!!!reading IMG!!!!!!!!!!!!!!!!!!!!" << filename << std::endl;
 	cv::Mat m = cv::imread(filename, CV_LOAD_IMAGE_GRAYSCALE);
+//    std::cout << "!!!!!!!!!!!!!!!!!!!IMG DIMS!!!!!!!!!!!!!!!!!!!!" << m.cols << std::endl;
 	if(m.rows*m.cols==0)
 	{
 		printf("cv::imread could not read image %s! this may segfault. \n", filename.c_str());
