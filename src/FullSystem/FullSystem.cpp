@@ -285,8 +285,11 @@ void FullSystem::printResult(std::string file)
 //			  R(1,0) <<" "<<R(1,1)<<" "<<R(1,2)<<" "<<T(1,0)<<" "<<
 //			  R(2,0) <<" "<<R(2,1)<<" "<<R(2,2)<<" "<<T(2,0)<<"\n";
 
+//			" " << s->camToWorld.translation().transpose()<<
 		myfile << s->timestamp <<
-			" " << s->camToWorld.translation().transpose()<<
+		    " " << s->camToWorld.translation().x() <<
+            " " << s->camToWorld.translation().y() <<
+            " " << s->camToWorld.translation().z() <<
 			" " << s->camToWorld.so3().unit_quaternion().x()<<
 			" " << s->camToWorld.so3().unit_quaternion().y()<<
 			" " << s->camToWorld.so3().unit_quaternion().z()<<
